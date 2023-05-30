@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@/components/Input';
 import { useRouter } from 'next/router';
 import { Game } from '@/components/Game';
+import Link from 'next/link';
 
 export default function Home({ pb }) {
   const router = useRouter();
@@ -34,9 +35,11 @@ export default function Home({ pb }) {
         >
           {loggedIn ? 'Вийти' : 'Логін'}
         </button>
-        <button className={`px-8 py-4 text-lg rounded-lg bg-amber-300`}>
-          Таблиця лідерів
-        </button>
+        <Link href='leaders'>
+          <button className={`px-8 py-4 text-lg rounded-lg bg-amber-300`}>
+            Таблиця лідерів
+          </button>
+        </Link>
       </div>
       <Game pb={pb} />
     </div>

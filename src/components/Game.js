@@ -23,7 +23,7 @@ function getScore(turn, end) {
   if (end === -1) {
     return -MAX_SCORE;
   }
-  return MAX_SCORE - SCORE_DECREMENT * turn;
+  return MAX_SCORE - SCORE_DECREMENT * (turn - 1);
 }
 
 function Game({ pb }) {
@@ -147,6 +147,15 @@ function Game({ pb }) {
           } px-1 cursor-pointer`}
         />
         Слівце
+        {!!gameEnd && (
+          <span
+            className={`px-1 ${
+              gameEnd === 1 ? 'text-green-400' : 'text-red-400'
+            }`}
+          >
+            {getScore(currentRow, gameEnd)}
+          </span>
+        )}
       </h1>
       <div className='flex flex-col gap-4'>
         {grid.map((row, i) => {
