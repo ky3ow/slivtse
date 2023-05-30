@@ -106,6 +106,7 @@ function Game({ pb }) {
           setCurrentCol(0);
           if (currentRow === 5) {
             setGameEnd(-1);
+            triggerPopup('Загадане слово: ' + chosenWord)
             if (pb?.authStore?.baseModel) updateUserLose();
           }
         }
