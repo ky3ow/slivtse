@@ -92,7 +92,7 @@ function Game({ pb }) {
       if (key === 'Enter') {
         const word = grid[currentRow].join('');
         if (word === chosenWord) {
-          updateUserWin();
+          if(pb?.authStore?.baseModel) updateUserWin();
           setGameEnd(1);
         }
         if (!isValidWord(word)) {
@@ -102,7 +102,7 @@ function Game({ pb }) {
           setCurrentCol(0);
           if (currentRow === 5) {
             setGameEnd(-1);
-            updateUserLose();
+            if (pb?.authStore?.baseModel) updateUserLose();
           }
         }
       } else {
@@ -112,7 +112,7 @@ function Game({ pb }) {
           setCurrentCol((j) => j - 1);
           return;
         } else if (key.length > 1 || key === ' ' || currentCol >= 5) return;
-        newGrid[currentRow][currentCol] = key;
+        newGrid[currentRow][currentCol] = key.toLowerCase();
         setCurrentCol((j) => j + 1);
         setGrid(newGrid);
       }

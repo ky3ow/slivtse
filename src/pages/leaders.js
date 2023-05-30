@@ -3,20 +3,21 @@ import Link from 'next/link';
 
 export default function Login({ pb }) {
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     if (pb) {
-       pb.collection('users')
-         .getFullList({ sort: '+score' })
-         .then((data) => {
-           const allUsers = data;
-           const currUser = data.find(
-             (el) => el.id === pb.authStore.baseModel.id
-           );
-           setUsers(allUsers.slice(0, 5));
-           setCurrentUser(currUser)
-         });
+      pb.collection('users')
+        .getFullList({ sort: '+score' })
+        .then((data) => {
+          const allUsers = data;
+          const currUser = data.find(
+            (el) => el.id === pb.authStore.baseModel?.id
+          );
+          setUsers(allUsers.slice(0, 5));
+          setCurrentUser(currUser);
+        }).catch(e => console.log(e));
+        
     }
   }, [pb]);
   return (
@@ -47,15 +48,21 @@ export default function Login({ pb }) {
             <p className='basis-1/3 text-center text-xl'>{usr.score}</p>
           </div>
         ))}
-        <div
-          key={currentUser.id}
-          className={`flex p-4 bg-sky-300 mt-8 justify-between relative`}
-        >
-          <p className='basis-1/3 text-center text-xl'>{currentUser.username}</p>
-          <p className='basis-1/3 text-center text-xl'>{currentUser.personal_best}</p>
-          <p className='basis-1/3 text-center text-xl'>{currentUser.score}</p>
-          <p className='absolute left-2 text-xl'>Ви</p>
-        </div>
+        {currentUser && (
+          <div
+            key={currentUser.id}
+            className={`flex p-4 bg-sky-300 mt-8 justify-between relative`}
+          >
+            <p className='basis-1/3 text-center text-xl'>
+              {currentUser.username}
+            </p>
+            <p className='basis-1/3 text-center text-xl'>
+              {currentUser.personal_best}
+            </p>
+            <p className='basis-1/3 text-center text-xl'>{currentUser.score}</p>
+            <p className='absolute left-2 text-xl'>Ви</p>
+          </div>
+        )}
       </div>
     </div>
   );
