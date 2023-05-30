@@ -24,7 +24,7 @@ export default function Home({ pb }) {
   }, [pb?.authStore.isValid]);
 
   return (
-    <div className='flex flex-col h-screen p-8'>
+    <div className='bg-slate-200 flex flex-col min-h-screen p-8'>
       <div className='flex justify-between'>
         <button
           onClick={handleLogin}
@@ -38,7 +38,7 @@ export default function Home({ pb }) {
           Таблиця лідерів
         </button>
       </div>
-      <Game />
+      <Game pb={pb} />
     </div>
   );
 }

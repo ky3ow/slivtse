@@ -33,11 +33,11 @@ export default function Login({ pb }) {
         router.push('/');
       }
     } catch (e) {
-      console.log(e);
+      alert('Неправильний логін чи пароль')
     }
   }
   return (
-    <div className='min-h-screen flex items-center justify-center'>
+    <div className='bg-slate-200 min-h-screen flex items-center justify-center'>
       <Link href='/'>
         <button
           className={`px-14 py-4 text-lg rounded-lg fixed top-8 left-8 bg-blue-500`}
