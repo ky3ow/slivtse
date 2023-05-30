@@ -66,7 +66,9 @@ function Game({ pb }) {
 
   useEffect(() => {
     async function updateUserWin() {
-      const user = await pb.collection('users').getOne(pb.authStore.baseModel.id);
+      const user = await pb
+        .collection('users')
+        .getOne(pb.authStore.baseModel.id);
       const wins = user.consequtive_wins + 1;
       const data = {
         consequtive_wins: wins,
@@ -77,7 +79,9 @@ function Game({ pb }) {
       pb.collection('users').update(user.id, data);
     }
     async function updateUserLose() {
-      const user = await pb.collection('users').getOne(pb.authStore.baseModel.id);
+      const user = await pb
+        .collection('users')
+        .getOne(pb.authStore.baseModel.id);
       const data = {
         consequtive_wins: 0,
         score: user.score + getScore(currentRow, -1),
@@ -92,7 +96,7 @@ function Game({ pb }) {
       if (key === 'Enter') {
         const word = grid[currentRow].join('');
         if (word === chosenWord) {
-          if(pb?.authStore?.baseModel) updateUserWin();
+          if (pb?.authStore?.baseModel) updateUserWin();
           setGameEnd(1);
         }
         if (!isValidWord(word)) {
@@ -121,14 +125,7 @@ function Game({ pb }) {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [
-    currentCol,
-    currentRow,
-    grid,
-    gameEnd,
-    chosenWord,
-    pb
-  ]);
+  }, [currentCol, currentRow, grid, gameEnd, chosenWord, pb]);
   return (
     <div className='flex flex-col p-16  items-center flex-grow'>
       <div
@@ -138,25 +135,31 @@ function Game({ pb }) {
       >
         {popupVisible}
       </div>
-      <h1 className='text-3xl font-bold mb-4'>
-        <FontAwesomeIcon
+      <div className='flex relative'>
+        <h1
           onClick={changeDifficulty}
-          icon={faFire}
-          className={`${
-            difficulty === 1 ? 'text-rose-600' : 'text-orange-400'
-          } px-1 cursor-pointer`}
-        />
-        Слівце
+          className={`text-3xl group peer font-bold mb-4 cursor-pointer`}
+        >
+          <FontAwesomeIcon
+            icon={faFire}
+            className={`px-1 ${
+              difficulty === 1
+                ? 'group-hover:text-orange-500 text-rose-600'
+                : 'group-hover:text-rose-600 text-orange-500'
+            } `}
+          />
+          Слівце
+        </h1>
         {!!gameEnd && (
           <span
-            className={`px-1 ${
-              gameEnd === 1 ? 'text-green-400' : 'text-red-400'
+            className={`px-1 text-xl font-bold ${
+              gameEnd === 1 ? 'text-green-600' : 'text-red-600'
             }`}
           >
             {getScore(currentRow, gameEnd)}
           </span>
         )}
-      </h1>
+      </div>
       <div className='flex flex-col gap-4'>
         {grid.map((row, i) => {
           return (
