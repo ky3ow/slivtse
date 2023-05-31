@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Login({ pb }) {
   const [users, setUsers] = useState([]);
@@ -7,21 +8,25 @@ export default function Login({ pb }) {
 
   useEffect(() => {
     if (pb) {
-      pb.collection('users')
-        .getFullList({ sort: '+score' })
-        .then((data) => {
-          const allUsers = data;
-          const currUser = data.find(
-            (el) => el.id === pb.authStore.baseModel?.id
-          );
-          setUsers(allUsers.slice(0, 5));
-          setCurrentUser(currUser);
-        }).catch(e => console.log(e));
+pb.collection('users')
+  .getFullList({ sort: '+score' })
+  .then((data) => {
+    const allUsers = data;
+    const currUser = data.find(
+      (el) => el.id === pb.authStore.baseModel?.id
+    );
+    setUsers(allUsers.slice(0, 5));
+    setCurrentUser(currUser);
+  }).catch(e => console.log(e));
         
     }
   }, [pb]);
   return (
   <div className='bg-slate-200 min-h-screen flex flex-col items-center justify-center'>
+      <Head>
+        <title>Лідери</title>
+        <meta property='og:title' content="Лідери" key='title' />
+      </Head>
     <Link href='/'>
       <button
         className={`px-14 py-4 text-lg rounded-lg fixed top-8 right-8 bg-blue-500`}

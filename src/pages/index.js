@@ -4,21 +4,22 @@ import { Input } from '@/components/Input';
 import { useRouter } from 'next/router';
 import { Game } from '@/components/Game';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Home({ pb }) {
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
   const [tutorialVisible, setTutorialVisible] = useState(false);
 
-  function handleLogin(e) {
-    if (loggedIn) {
-      pb.authStore.clear();
-      document.cookie = 'pb_auth= ; expires=Thu,18 Dec 2013 12:00:00 UTC';
-      setLoggedIn(false);
-    } else {
-      router.push('login');
-    }
+function handleLogin(e) {
+  if (loggedIn) {
+    pb.authStore.clear();
+    document.cookie = 'pb_auth= ; expires=Thu,18 Dec 2013 12:00:00 UTC';
+    setLoggedIn(false);
+  } else {
+    router.push('login');
   }
+}
 
   useEffect(() => {
     setLoggedIn(pb?.authStore.isValid);
@@ -26,6 +27,10 @@ export default function Home({ pb }) {
 
   return (
     <div className='bg-slate-200 relative flex flex-col min-h-screen p-8'>
+      <Head>
+        <title>Слівце</title>
+        <meta property='og:title' content="Слівце" key='title' />
+      </Head>
       {tutorialVisible && (
         <div
           onClick={() => setTutorialVisible(false)}

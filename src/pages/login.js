@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import { Input } from '@/components/Input';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Ім'я користувача обов'язкове"),
@@ -22,22 +23,26 @@ export default function Login({ pb }) {
     if (pb?.authStore.isValid) router.push('/');
   }, [pb, router]);
 
-  async function onSubmit({ username, password }) {
-    try {
-      const authData = await pb
-        .collection('users')
-        .authWithPassword(username, password);
-      if (authData) {
-        document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+async function onSubmit({ username, password }) {
+  try {
+    const authData = await pb
+      .collection('users')
+      .authWithPassword(username, password);
+    if (authData) {
+      document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
 
-        router.push('/');
-      }
-    } catch (e) {
-      alert('Неправильний логін чи пароль')
+      router.push('/');
     }
+  } catch (e) {
+    alert('Неправильний логін чи пароль')
   }
+}
   return (
     <div className='bg-slate-200 min-h-screen flex items-center justify-center'>
+      <Head>
+        <title>Логін</title>
+        <meta property='og:title' content="Логін" key='title' />
+      </Head>
       <Link href='/'>
         <button
           className={`px-14 py-4 text-lg rounded-lg fixed top-8 left-8 bg-blue-500`}
