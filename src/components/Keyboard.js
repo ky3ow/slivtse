@@ -15,7 +15,7 @@ function Keyboard({ grid, word }) {
         ))}
       </div>
       <div className='flex gap-2 mb-2'>
-        {'ячсмитьбю'.split('').map((letter) => (
+        {'ґячсмитьбю'.split('').map((letter) => (
           <Key keycode={letter} key={letter} guesses={grid} word={word} />
         ))}
       </div>
