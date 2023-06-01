@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 export default function Login({ pb }) {
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     if (pb) {
