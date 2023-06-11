@@ -9,10 +9,8 @@ export default function Login({ pb }) {
   useEffect(() => {
     if (pb) {
 pb.collection('users')
-  .getFullList({ sort: '+score' })
+  .getFullList({ sort: '-score' })
   .then((data) => {
-    console.log(data)
-    console.log(process.env.DB_URL)
     const allUsers = data;
     const currUser = data.find(
       (el) => el.id === pb.authStore.baseModel?.id
