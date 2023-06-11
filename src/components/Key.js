@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Key({ keycode, word, guesses }) {
+function Key({ keycode }) {
   function simulateKeyPress() {
     const event = new KeyboardEvent('keydown', {key: keycode})
     document.dispatchEvent(event);
