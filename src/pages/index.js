@@ -9,6 +9,8 @@ import Head from 'next/head';
 export default function Home({ pb }) {
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
+  // const [a,b] = [1,2]
+  // a - 1, b - 2
   const [tutorialVisible, setTutorialVisible] = useState(false);
 
 function handleLogin(e) {

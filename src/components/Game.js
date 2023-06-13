@@ -98,8 +98,7 @@ function Game({ pb }) {
         if (word === chosenWord) {
           if (pb?.authStore?.baseModel) updateUserWin();
           setGameEnd(1);
-        }
-        if (!isValidWord(word)) {
+        } else if (!isValidWord(word)) {
           triggerPopup('Слова нема в словнику');
         } else {
           setCurrentRow((i) => i + 1);
